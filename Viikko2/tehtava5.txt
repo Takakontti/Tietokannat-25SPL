@@ -1,0 +1,28 @@
+
+select dept_name from departments;
+
+-----------------------------------------------
+
+select distinct title from titles;
+
+-----------------------------------------------
+
+select MIN(salary), MAX(salary) from salaries;
+
+-----------------------------------------------
+
+select AVG(salary) from salaries;
+
+-----------------------------------------------
+
+select * from employees where last_name='Facello';
+
+-----------------------------------------------
+
+select count(*) from employees where birth_date like '195%';
+
+-----------------------------------------------
+
+select gender, count(*) from employees group by gender;
+
+-----------------------------------------------
