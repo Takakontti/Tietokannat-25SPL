@@ -7,11 +7,11 @@ select distinct title from titles;
 
 -----------------------------------------------
 
-select MIN(salary), MAX(salary) from salaries;
+select MIN(salary), MAX(salary) from salaries where to_date = '9999-01-01';
 
 -----------------------------------------------
 
-select AVG(salary) from salaries;
+select AVG(salary) from salaries where to_date = '9999-01-01';
 
 -----------------------------------------------
 

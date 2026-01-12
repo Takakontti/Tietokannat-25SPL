@@ -1,0 +1,32 @@
+
+mysql> select name from language order by name asc;
+
+-----------------------------------------------------------
+
+mysql> select film.title from actor
+    -> join film_actor on actor.actor_id = film_actor.actor_id
+    -> join film on film_actor.film_id = film.film_id
+    -> where actor.last_name = 'Temple';
+
+-----------------------------------------------------------
+
+mysql> select actor.first_name, actor.last_name from film
+    -> join film_actor on film.film_id = film_actor.film_id
+    -> join actor on film_actor.actor_id = actor.actor_id
+    -> where film.title = 'Ghost Groundhog';
+
+-----------------------------------------------------------
+
+mysql> select count(film.film_id) from film
+    -> join film_category on film.film_id = film_category.film_id
+    -> join category on film_category.category_id = category.category_id
+    -> where category.name = 'Horror';
+
+-----------------------------------------------------------
+
+mysql> select film.title from film
+    -> join film_category on film.film_id = film_category.film_id
+    -> join category on film_category.category_id = category.category_id
+    -> where category.name = 'Horror';
+
+-----------------------------------------------------------
