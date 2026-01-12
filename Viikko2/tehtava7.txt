@@ -26,6 +26,7 @@ mysql> select first_name, last_name, salary from employees join salaries on empl
 mysql> select dept_name,count(*) from departments
     -> join dept_emp on departments.dept_no=dept_emp.dept_no
     -> join employees on employees.emp_no=dept_emp.emp_no
+    -> and (dept_emp.to_date = '9999-01-01')
     -> where dept_name = 'Marketing' or dept_name = 'Sales'
     -> GROUP BY dept_name;
 
