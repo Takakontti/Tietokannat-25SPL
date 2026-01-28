@@ -1,0 +1,12 @@
+mysql> select Etunimi, Sukunimi, Arvosana from Opiskelija join Arviointi on Arviointi.idOpiskelija = Opiskelija.idOpiskelija where arvosana = 0;
+
+mysql> select Etunimi, Sukunimi, Nimi, Arvosana from Opiskelija join Arviointi on Arviointi.idOpiskelija = Opiskelija.idOpiskelija join Opintojakso on Opintojakso.idOpintojakso = Arviointi.idOpintojakso where arvosana > 0 and Nimi = 'Fysiikka 3';
+
+mysql> select Etunimi, Sukunimi, Nimi from Opiskelija join Arviointi on Arviointi.idOpiskelija = Opiskelija.idOpiskelija join Opintojakso on Opintojakso.idOpintojakso = Arviointi.idOpintojakso where Etunimi = 'Hessu';
+
+mysql> select Etunimi, Avg(Arvosana) from Opiskelija join Arviointi on Arviointi.idOpiskelija = Opiskelija.idOpiskelija where Etunimi = 'Aku' group by Etunimi;
+
+mysql> SELECT opintojakso.idOpintojakso, Koodi, Nimi
+    -> FROM Opintojakso
+    -> LEFT JOIN Arviointi ON opintojakso.idOpintojakso = arviointi.idOpintojakso
+    -> WHERE arviointi.idOpintojakso IS NULL;
