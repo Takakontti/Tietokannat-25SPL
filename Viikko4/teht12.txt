@@ -1,0 +1,121 @@
+-Tekijöiden lisäys-
+
+INSERT INTO Tekija (etunimi, sukunimi, syntymavuosi) VALUES
+    -> ('Mika', 'Maku', 1908),
+    -> ('Arto', 'Apila', 1942),
+    -> ('Yrjö', 'Yötön', 1903);
+
+select * from tekija;
++-----------+---------+----------+--------------+
+| tekija_id | etunimi | sukunimi | syntymavuosi |
++-----------+---------+----------+--------------+
+|         1 | Mika    | Maku     |         1908 |
+|         2 | Arto    | Apila    |         1942 |
+|         3 | Yrjö    | Yötön    |         1903 |
++-----------+---------+----------+--------------+
+
+--------------------------------------------------------------
+
+-Teoksien lisäys-
+
+INSERT INTO Teos (nimi, isbn, julkaisuvuosi) VALUES
+    -> ('Kävele kuin egyptiläinen', '9789510412959', 1945),
+    -> ('Puhu kuin egyptiläinen', '1234567890123', 2000);
+
+select * from teos;
++---------+----------------------------+---------------+---------------+
+| teos_id | nimi                       | isbn          | julkaisuvuosi |
++---------+----------------------------+---------------+---------------+
+|       1 | Kävele kuin egyptiläinen   | 9789510412959 |          1945 |
+|       2 | Puhu kuin egyptiläinen     | 1234567890123 |          2000 |
++---------+----------------------------+---------------+---------------+
+
+--------------------------------------------------------------
+
+-Tekijöiden ja teoksien liitto teos_tekijä tauluun-
+
+INSERT INTO teos_tekija (teos_id, tekija_id)
+    -> select t.teos_id, tk.tekija_id
+    -> from teos t
+    -> join tekija tk
+    -> where t.isbn = '9789510412959'
+    -> and tk.etunimi = 'Mika'
+    -> and tk.sukunimi = 'Maku';
+
+
+INSERT INTO teos_tekija (teos_id, tekija_id)
+    -> select t.teos_id, tk.tekija_id
+    -> from teos t
+    -> join tekija tk
+    -> where t.isbn = '1234567890123'
+    -> and tk.etunimi = 'Arto'
+    -> and tk.sukunimi = 'Apila';
+
+
+mysql> INSERT INTO teos_tekija (teos_id, tekija_id)
+    -> select t.teos_id, tk.tekija_id
+    -> from teos t
+    -> join tekija tk
+    -> where t.isbn = '1234567890123'
+    -> and tk.etunimi = 'Yrjö'
+    -> and tk.sukunimi = 'Yötön';
+
+select * from teos_tekija;
++---------+-----------+
+| teos_id | tekija_id |
++---------+-----------+
+|       1 |         1 |
+|       2 |         2 |
+|       2 |         3 |
++---------+-----------+
+
+-----------------------------------------------------------
+
+-Asiakkaiden lisäys-
+
+insert into asiakas (etunimi, sukunimi, email, puhelin, rekisterointi_pvm) values
+    -> ('Aito', 'Asiakas', 'aias@yritys.fi', '0405954230', curdate()),
+    -> ('Reino', 'Reilu', 'rere@gmail.com', NULL, curdate()),
+    -> ('Jolle', 'Joutelias', 'jojo@kivimeri.fi', NULL, curdate());
+
+select * from asiakas;
++------------+---------+-----------+------------------+------------+-------------------+
+| asiakas_id | etunimi | sukunimi  | email            | puhelin    | rekisterointi_pvm |
++------------+---------+-----------+------------------+------------+-------------------+
+|          1 | Aito    | Asiakas   | aias@yritys.fi   | 0405954230 | 2026-02-06        |
+|          2 | Reino   | Reilu     | rere@gmail.com   | NULL       | 2026-02-06        |
+|          3 | Jolle   | Joutelias | jojo@kivimeri.fi | NULL       | 2026-02-06        |
++------------+---------+-----------+------------------+------------+-------------------+
+
+-----------------------------------------------------------
+
+-Kirjojen lisäys-
+
+insert into kirja (teos_id, hyllypaikka, tila) values
+    -> (1, 'A1', 'HYLLYSSA'),
+    -> (1, 'A1', 'LAINASSA'),
+    -> (2, 'B2', 'HYLLYSSA');
+
+select * from kirja;
++----------+---------+-------------+----------+
+| kirja_id | teos_id | hyllypaikka | tila     |
++----------+---------+-------------+----------+
+|        1 |       1 | A1          | HYLLYSSA |
+|        2 |       1 | A1          | LAINASSA |
+|        3 |       2 | B2          | HYLLYSSA |
++----------+---------+-------------+----------+
+
+------------------------------------------------------------
+
+-Lainaustapahtuman luonti- 
+
+insert into lainaus (kirja_id, asiakas_id, palautus_pvm) values
+    -> (2, 1, NULL);
+
+
+ select * from lainaus;
++------------+----------+------------+-------------+------------+--------------+
+| lainaus_id | kirja_id | asiakas_id | lainaus_pvm | erapaiva   | palautus_pvm |
++------------+----------+------------+-------------+------------+--------------+
+|          1 |        2 |          1 | 2026-02-06  | 2026-03-08 | NULL         |
++------------+----------+------------+-------------+------------+--------------+
